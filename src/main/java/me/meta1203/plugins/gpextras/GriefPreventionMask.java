@@ -14,13 +14,13 @@ import com.sk89q.worldedit.masks.Mask;
 
 public class GriefPreventionMask implements Mask {
 	private Player player;
+	private DataStore ds = Gpextras.gp.dataStore;
 	
 	GriefPreventionMask(Player p) {
 		player = p;
 	}
 	
 	public boolean matches(EditSession arg0, Vector arg1) {
-		DataStore ds = Gpextras.gp.dataStore;
 		if (!Gpextras.gp.claimsEnabledForWorld(player.getWorld())) {
 			return true;
 		}
