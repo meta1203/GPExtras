@@ -37,6 +37,7 @@ public class GriefPreventionMask implements Mask {
 	}
 
 	public void prepare(LocalSession arg0, LocalPlayer arg1, Vector arg2) {
+		System.out.println("Activating WorldEdit!");
 	}
 
 }

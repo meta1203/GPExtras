@@ -6,11 +6,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import com.sk89q.worldedit.LocalSession;
 
 public class ExtrasListener implements Listener {
-	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
+	
+	@EventHandler(ignoreCancelled=true, priority=EventPriority.LOWEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (event.getClickedBlock() != null) {
@@ -26,9 +28,19 @@ public class ExtrasListener implements Listener {
 		}
 	}
 	
-	@EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		if (Gpextras.wep != null) {
+			System.out.println("Masking player...");
+			LocalSession ls = Gpextras.wep.getSession(event.getPlayer());
+			ls.setMask(new GriefPreventionMask(event.getPlayer()));
+		}
+	}
+	
+	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
+	public void onPlayerTeleport(PlayerTeleportEvent event) {
+		if (Gpextras.wep != null) {
+			System.out.println("Masking player...");
 			LocalSession ls = Gpextras.wep.getSession(event.getPlayer());
 			ls.setMask(new GriefPreventionMask(event.getPlayer()));
 		}
